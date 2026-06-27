@@ -45,14 +45,14 @@ class Controller:
         for l in longest_path:
             self._view.txt_result.controls.append(ft.Text(l))
 
-        self._view.txt_result.controls.append(ft.Text(f"Il cammino semplice di lunghezza max con arcchi di peso strettamente crescente:"))
+        self._view.txt_result.controls.append(ft.Text(f"Il cammino semplice di lunghezza max con archi di peso strettamente crescente:"))
         for c in cammino_pesoASC:
             self._view.txt_result.controls.append(ft.Text(c))
 
         self._view.update_page()
 
 
-
+    # metodo fill dropdown
     def fillDDGnere(self):
         genres = self._model.getAllGenres()
         for i in genres:
@@ -60,7 +60,7 @@ class Controller:
                                                                         key=i,
                                                                         on_click=self.chosenGenre
                                                                         ))
-
+    # metodo chosen element dal dropdown
     def chosenGenre(self, e):
         self._chosenGenre = e.control.data
         print(self._chosenGenre)
