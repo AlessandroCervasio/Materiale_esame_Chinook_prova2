@@ -24,3 +24,7 @@ for l in longestPath:
 camminoPeso= mdl.getCamminoPesoASC(artista)
 for c in camminoPeso:
     print(c)
+
+cc= mdl.compConnOrdineDESCDim()
+for c in cc:
+    print(c)

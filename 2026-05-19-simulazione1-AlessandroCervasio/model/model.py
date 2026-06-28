@@ -78,6 +78,47 @@ class Model:
         n_archi = len(self._graph.edges)
         return n_nodi, n_archi
 
+    # numero componenti connesse
+    def numCompConn(self):
+        return nx.number_connected_components(self._graph)
+
+
+    # componente connessa di dimensione massima con nodi ordinati in base al grado
+    def maxCompConnOrdDegree(self):
+        comp_conn_max = max(nx.connected_components(self._graph), key=len)
+        comp_con_ord_grado = sorted(comp_conn_max, key=lambda x: self._graph.degree[x], reverse=True)
+        return comp_con_ord_grado
+
+
+    # componenti debolmente connesse (DiGraph)
+    def compDebConn (self):
+        return list(nx.weakly_connected_components(self._graph))
+
+    # componenti connesse con dimensione maggiore di 1 in ordine decrescente di dimensione
+    def compConnOrdineDESCDim(self):
+        risultato=[]
+        comp_conn= list(nx.strongly_connected_components(self._graph))
+        for c in comp_conn:
+            if len(c)>1:
+                risultato.append(c)
+
+        return sorted(risultato, key=len, reverse=True)
+
+
+    # metodo per calcolare somma dei pesi di archi entranti ed uscenti
+    def pesoNodiInOut(self, nodo):
+        peso_out = self._graph.out_degree(weight="weight")[nodo]
+        peso_in = self._graph.in_degree(weight="weight")[nodo]
+
+        return peso_in, peso_out
+
+    # metodo per ottenere il numero di archi entranti e uscenti
+    def numeroArchiInOut(self, nodo):
+        num_nodi_in=self._graph.in_degree(nodo)
+        num_nodi_out= self._graph.out_degree(nodo)
+        return num_nodi_in, num_nodi_out
+
+
     # percorso più lungo con ricorsiva
     def getLongestPath(self, source):
         parziale=[source]
@@ -95,7 +136,8 @@ class Model:
                 self.ricorsivaLongestPath(parziale)
                 parziale.pop()
 
-    # cammmino di lunghezza massima con peso degli archi crescente
+
+    # cammmino di lunghezza massima con peso degli archi crescente (ricorsiva)
     def getCamminoPesoASC(self, source):
         parziale = [source]
         self.ricorsivaCamminoPesoASC(parziale)

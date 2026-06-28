@@ -80,3 +80,10 @@ class Controller:
     def chosenArtist(self, e):
         self._chosenArtist = e.control.data
         print(self._chosenArtist)
+
+    # try:
+    #     k_clienti=int(self._view._txt_k_clienti_countries.value)
+    #
+    # except ValueError:
+    #     self._view.create_alert("Inserire un numero intero nell'apposito campo per proseguire!")
+    #     return
